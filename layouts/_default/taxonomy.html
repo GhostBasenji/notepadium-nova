@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<h1>{{ if eq .Data.Plural "categories" }}Категории{{ else }}Теги{{ end }}</h1>
+
+{{ if eq .Data.Plural "categories" }}
+
+  {{ range .Data.Terms.Alphabetical }}
+    <section class="taxonomy-group">
+      <h2>{{ .Page.Title }}</h2>
+
+      <ul>
+        {{ range .Pages }}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+
+{{ else }}
+
+  <!-- ПРОСТОЕ ОБЛАКО ТЕГОВ -->
+  <p class="tag-cloud">
+    {{ range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
+    {{ end }}
+  </p>
+
+{{ end }}
+
+{{ end }}
